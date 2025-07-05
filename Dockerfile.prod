@@ -1,0 +1,29 @@
+# Stage 1: Build the app
+FROM node:22-alpine AS build
+
+WORKDIR /src
+
+# Copy only package files first for better caching
+COPY package.json .
+RUN npm install
+
+# Copy the rest of the app from root to the container root
+COPY . .
+
+# Build the app
+RUN npm run build
+
+# Stage 2: Run the app
+FROM build AS production
+
+
+# Copy build output and static assets
+COPY --from=build /src/.next .next
+COPY --from=build /src/public ./public
+COPY --from=build /src/next.config.ts ./
+COPY --from=build /src/node_modules ./node_modules
+
+# Expose port
+
+# Start app in production mode
+CMD ["npm", "start"]
