@@ -129,7 +129,7 @@ const Page: React.FC = () => {
             ) : (
               (todos || []).map((todoItem: Todo) => (
                 <div
-                  key={todoItem._id}
+                  key={todoItem?._id}
                   className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-lg border border-white/30 p-6 transition-all duration-300 hover:shadow-xl hover:bg-white/90"
                 >
                   <div className="flex items-center gap-4">
@@ -137,7 +137,7 @@ const Page: React.FC = () => {
                     <div className="flex-shrink-0">
                       <input
                         type="checkbox"
-                        checked={todoItem.isCompleted}
+                        checked={todoItem?.isCompleted}
                         onChange={(): void => {
                           // setIsCompleted(
                           //   (todoItem.isCompleted = !todoItem.isCompleted)
@@ -155,7 +155,7 @@ const Page: React.FC = () => {
                         <Input
                           type="text"
                           placeholder="Edit Todo"
-                          value={editingTodo.todo}
+                          value={editingTodo?.todo}
                           onChange={(e) =>
                             setEditingTodo({
                               ...editingTodo,
@@ -169,12 +169,12 @@ const Page: React.FC = () => {
                         <div className="space-y-2">
                           <p
                             className={`text-lg font-medium transition-all duration-300 ${
-                              todoItem.isCompleted
+                              todoItem?.isCompleted
                                 ? "line-through text-gray-500"
                                 : "text-gray-800"
                             }`}
                           >
-                            {todoItem.todo}
+                            {todoItem?.todo}
                           </p>
                         </div>
                       )}
@@ -184,15 +184,15 @@ const Page: React.FC = () => {
                     <div className="flex items-center gap-3">
                       <span
                         className={`px-3 py-1 rounded-full text-sm font-medium ${
-                          todoItem.isCompleted
+                          todoItem?.isCompleted
                             ? "bg-green-100 text-green-700 border border-green-200"
                             : "bg-yellow-100 text-yellow-700 border border-yellow-200"
                         }`}
                       >
-                        {todoItem.isCompleted ? "Completed" : "Not Completed"}
+                        {todoItem?.isCompleted ? "Completed" : "Not Completed"}
                       </span>
 
-                      {todoItem.isUpdated && (
+                      {todoItem?.isUpdated && (
                         <span className="px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full text-sm font-medium flex items-center gap-1">
                           <Clock className="w-3 h-3" />
                           Updated
@@ -243,13 +243,13 @@ const Page: React.FC = () => {
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-green-600">
-                    {todos?.filter((t) => t.isCompleted).length}
+                    {todos?.filter((t) => t?.isCompleted).length}
                   </div>
                   <div className="text-gray-600 text-sm">Completed</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-yellow-600">
-                    {todos?.filter((t) => !t.isCompleted).length}
+                    {todos?.filter((t) => !t?.isCompleted).length}
                   </div>
                   <div className="text-gray-600 text-sm">Pending</div>
                 </div>
