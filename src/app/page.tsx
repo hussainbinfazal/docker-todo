@@ -232,24 +232,24 @@ const Page: React.FC = () => {
           </div>
 
           {/* Stats Section */}
-          {todos.length > 0 && (
+          {todos?.length > 0 && (
             <div className="bg-white/60 backdrop-blur-lg rounded-2xl shadow-lg border border-white/30 p-6">
               <div className="grid grid-cols-3 gap-6 text-center">
                 <div>
                   <div className="text-2xl font-bold text-blue-600">
-                    {todos.length}
+                    {todos?.length}
                   </div>
                   <div className="text-gray-600 text-sm">Total Tasks</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-green-600">
-                    {todos.filter((t) => t.isCompleted).length}
+                    {todos?.filter((t) => t.isCompleted).length}
                   </div>
                   <div className="text-gray-600 text-sm">Completed</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-yellow-600">
-                    {todos.filter((t) => !t.isCompleted).length}
+                    {todos?.filter((t) => !t.isCompleted).length}
                   </div>
                   <div className="text-gray-600 text-sm">Pending</div>
                 </div>
