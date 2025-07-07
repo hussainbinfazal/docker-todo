@@ -19,7 +19,7 @@ const Page: React.FC = () => {
     { _id: "2", todo: "Call Alice", isCompleted: true, isUpdated: true },
   ]);
   const [todo, setTodo] = useState<string>("");
-  // const [isCompleted, setIsCompleted] = useState<boolean>(false);
+  const [isCompleted, setIsCompleted] = useState<boolean>(false);
   const [isUpdated, setIsUpdated] = useState<boolean>(false);
   const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
 
@@ -137,11 +137,11 @@ const Page: React.FC = () => {
                     <div className="flex-shrink-0">
                       <input
                         type="checkbox"
-                        checked={todoItem?.isCompleted}
+                        checked={todoItem?.isCompleted || isCompleted}
                         onChange={(): void => {
-                          // setIsCompleted(
-                          //   (todoItem.isCompleted = !todoItem.isCompleted)
-                          // );
+                          setIsCompleted(
+                            (todoItem.isCompleted = !todoItem.isCompleted)
+                          );
                           setIsUpdated(!isUpdated);
                           updateTodo(todoItem);
                         }}
