@@ -7,6 +7,7 @@ import axios from "axios";
 import { Circle, Clock, Edit3, Plus, Save } from "lucide-react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { toast } from "sonner";
+import { set } from "mongoose";
 
 interface Todo {
   readonly _id: string;
@@ -21,7 +22,7 @@ const Page: React.FC = () => {
     { _id: "2", todo: "Call Alice", isCompleted: true, isUpdated: true },
   ]);
   const [todo, setTodo] = useState<string>("");
-  const [isCompleted, setIsCompleted] = useState<boolean>(false);
+  // const [isCompleted, setIsCompleted] = useState<boolean>(false);
   const [isUpdated, setIsUpdated] = useState<boolean>(false);
   const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
 
@@ -139,13 +140,22 @@ const Page: React.FC = () => {
                     <div className="flex-shrink-0">
                       <input
                         type="checkbox"
-                        checked={todoItem?.isCompleted || isCompleted}
-                        onChange={(): void => {
-                          setIsCompleted(
-                            (todoItem.isCompleted = !todoItem.isCompleted)
+                        checked={todoItem?.isCompleted}
+                        onChange={() => {
+                          const updatedTodos = todos.map((t) =>
+                            t._id === todoItem._id
+                              ? {
+                                  ...t,
+                                  isCompleted: !t.isCompleted,
+                                  isUpdated: true,
+                                }
+                              : t
                           );
-                          setIsUpdated(!isUpdated);
-                          updateTodo(todoItem);
+                          setTodos(updatedTodos);
+                          updateTodo({
+                            ...todoItem,
+                            isCompleted: !todoItem.isCompleted,
+                          });
                         }}
                         className="w-6 h-6 text-blue-500 bg-white border-2 border-gray-300 rounded-full focus:ring-blue-500 focus:ring-2 cursor-pointer transition-all duration-200"
                       />
