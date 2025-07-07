@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { Circle, Clock, Edit3, Plus, Save } from "lucide-react";
+import { renderToStaticMarkup } from "react-dom/server";
+import { toast } from "sonner";
 
 interface Todo {
   readonly _id: string;
@@ -47,7 +49,7 @@ const Page: React.FC = () => {
         isCompleted: todo.isCompleted,
         isUpdated: todo.isUpdated,
       });
-      alert("Todo updated succesfully");
+      toast.success("Todo updated succesfully");
 
       setTodos((prevTodos) =>
         prevTodos.map((t) =>
